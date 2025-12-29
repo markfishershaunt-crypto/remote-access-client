@@ -20,9 +20,12 @@ class ClientConnection:
             logger=False,
             engineio_logger=False,
             reconnection=True,
-            reconnection_attempts=0,  # Бесконечные попытки
-            reconnection_delay=5
+            reconnection_attempts=5,
+            reconnection_delay=10,  # Увеличено
+            reconnection_delay_max=30,
+            request_timeout=120  # Добавлено - ждем 2 минуты
         )
+
         
         self.ui_capture = UITreeCapture()
         self.command_executor = CommandExecutor()
@@ -167,3 +170,4 @@ class ClientConnection:
         if self.sio.connected:
             self.sio.disconnect()
         self.update_status("Disconnected")
+
